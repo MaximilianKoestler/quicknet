@@ -37,7 +37,7 @@
 
 namespace quicknet {
 
-Layer::Layer(const matrix_t& weights, const vector_t& bias, vector_t& output, activation_t activation)
+Layer::Layer(const matrix_t& weights, const vector_t& bias, vector_t& output, const activation_t activation)
     : weights{weights}, bias{bias}, output{output}, activation{activation} {
     QUICKNET_ASSERT(output.length() == bias.length());
     QUICKNET_ASSERT(output.length() == weights.rows());

@@ -50,7 +50,7 @@ using activation_t = void (*)(vector_t&);
 
 class Layer {
 public:
-    Layer(const matrix_t& weights, const vector_t& bias, vector_t& output, activation_t activation);
+    Layer(const matrix_t& weights, const vector_t& bias, vector_t& output, const activation_t activation);
 
     Layer(const Layer&) = delete;
     Layer& operator=(const Layer&) = delete;
