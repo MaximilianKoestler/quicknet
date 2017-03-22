@@ -33,40 +33,12 @@
  * SUCH DAMAGE.
  */
 
-#ifndef QUICKNET__MATRIX_H_
-#define QUICKNET__MATRIX_H_
+#ifndef QUICKNET__INTEGER_H_
+#define QUICKNET__INTEGER_H_
 
-#include "../../helper/Integers.h"
+#include <cstdint>
+#include <cassert>
 
-namespace quicknet {
+#define QUICKNET_ASSERT(x) assert(x)
 
-template <typename T>
-class Matrix {
-public:
-    Matrix(uint8_t n, uint8_t m, const T* matrix) : n(n), m(m), matrix(matrix) {
-    }
-
-    Matrix(const Matrix&) = delete;
-    Matrix& operator=(const Matrix&) = delete;
-
-    uint8_t rows() const {
-        return this->n;
-    }
-
-    uint8_t columns() const {
-        return this->m;
-    }
-
-    T operator()(uint8_t i, uint8_t j) const {
-        return this->matrix[static_cast<uint16_t>(i) * this->m + j];
-    }
-
-private:
-    const uint8_t n;
-    const uint8_t m;
-    const T* const matrix;
-};
-
-} /* namespace quicknet */
-
-#endif /* QUICKNET__MATRIX_H_ */
+#endif /* QUICKNET__INTEGER_H_ */

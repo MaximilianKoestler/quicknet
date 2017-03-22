@@ -33,54 +33,40 @@
  * SUCH DAMAGE.
  */
 
-#include "Math.h"
+#ifndef QUICKNET__MATRIX_H_
+#define QUICKNET__MATRIX_H_
 
-#include <math.h>
+#include <Common.h>
 
 namespace quicknet {
 
-void quick_linear(vector_t& vector) {
-    return;
-}
-
-void quick_sigmoid(vector_t& vector) {
-    for(uint8_t j = 0; j < vector.length(); j++) {
-        vector(j) = (1.0 + (tanh(vector(j) / 2.0))) / 2.0;
-    }
-}
-
-void quick_softmax(vector_t& vector) {
-    weight_t sum = 0;
-    for(uint8_t j = 0; j < vector.length(); j++) {
-        vector(j) = exp(vector(j));
-        sum += vector(j);
+template <typename T>
+class Matrix {
+public:
+    Matrix(uint8_t n, uint8_t m, const T* matrix) : n(n), m(m), matrix(matrix) {
     }
 
-    for(uint8_t j = 0; j < vector.length(); j++) {
-        vector(j) = vector(j) / sum;
-    }
-    return;
-}
+    Matrix(const Matrix&) = delete;
+    Matrix& operator=(const Matrix&) = delete;
 
-void quick_tanh(vector_t& vector) {
-    for(uint8_t j = 0; j < vector.length(); j++) {
-        vector(j) = tanh(vector(j));
+    uint8_t rows() const {
+        return this->n;
     }
-    return;
-}
 
-uint8_t idmax(const vector_t& vector) {
-    uint8_t max_index = 0;
-    weight_t max_score = 0.0;
-
-    for(uint8_t i = 0; i < vector.length(); i++) {
-        if(vector(i) > max_score) {
-            max_index = i;
-            max_score = vector(i);
-        }
+    uint8_t columns() const {
+        return this->m;
     }
-    return max_index;
-}
+
+    T operator()(uint8_t i, uint8_t j) const {
+        return this->matrix[static_cast<uint16_t>(i) * this->m + j];
+    }
+
+private:
+    const uint8_t n;
+    const uint8_t m;
+    const T* const matrix;
+};
 
 } /* namespace quicknet */
 
+#endif /* QUICKNET__MATRIX_H_ */

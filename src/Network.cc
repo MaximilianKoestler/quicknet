@@ -33,7 +33,7 @@
  * SUCH DAMAGE.
  */
 
-#include "./Network.h"
+#include "Network.h"
 
 namespace quicknet {
 
