@@ -23,16 +23,17 @@ TEST(LayerTest, FeedForwardSimple) {
 
 	quicknet::Layer layer{weights, bias, output, nullptr};
 
-	std::vector<float> inputs{1.0, 3.5, 0.25, -1.0};
+	const std::vector<float> inputs{1.0, 3.5, 0.25, -1.0};
 
-	for(float k : inputs) {
-		float input_a[1];
-		input_a[0] = k;
+	for(float in : inputs) {
+		float input_a[1]{
+			in
+		};
 
-		quicknet::vector_t input{1,input_a};
+		const quicknet::vector_t input{1,input_a};
 		const quicknet::vector_t& output = layer.feedForward(input);
 
-		ASSERT_EQ(k * 0.5, output(0));
+		ASSERT_EQ(in * 0.5, output(0));
 	}
 }
 
@@ -54,13 +55,14 @@ TEST(LayerTest, FeedForwardSimpleBias) {
 
 	quicknet::Layer layer{weights, bias, output, nullptr};
 
-	std::vector<float> inputs{1.0, 3.5, 0.25, -1.0};
+	const std::vector<float> inputs{1.0, 3.5, 0.25, -1.0};
 
 	for(auto in : inputs) {
-		float input_a[1];
-		input_a[0] = in;
+		float input_a[1]{
+			in
+		};
 
-		quicknet::vector_t input{1,input_a};
+		const quicknet::vector_t input{1,input_a};
 		const quicknet::vector_t& output = layer.feedForward(input);
 
 		ASSERT_EQ(in * 0.5 - 0.75, output(0));
@@ -85,14 +87,15 @@ TEST(LayerTest, FeedForwardComplexIn) {
 
 	quicknet::Layer layer{weights, bias, output, nullptr};
 
-	std::vector<std::vector<float>> inputs{{1.0, 3.5}, {0.25, -1.0}};
+	const std::vector<std::vector<float>> inputs{{1.0, 3.5}, {0.25, -1.0}};
 
 	for(auto in : inputs) {
-		float input_a[2];
-		input_a[0] = in[0];
-		input_a[1] = in[1];
+		float input_a[2]{
+			in[0],
+			in[1]
+		};
 
-		quicknet::vector_t input{2,input_a};
+		const quicknet::vector_t input{2,input_a};
 		const quicknet::vector_t& output = layer.feedForward(input);
 
 		ASSERT_EQ(in[0] * 0.5 + in[1] * 2.25 - 0.75, output(0));
@@ -118,13 +121,14 @@ TEST(LayerTest, FeedForwardComplexOut) {
 
 	quicknet::Layer layer{weights, bias, output, nullptr};
 
-	std::vector<float> inputs{1.0, 3.5, 0.25, -1.0};
+	const std::vector<float> inputs{1.0, 3.5, 0.25, -1.0};
 
 	for(auto in : inputs) {
-		float input_a[1];
-		input_a[0] = in;
+		float input_a[1]{
+			in
+		};
 
-		quicknet::vector_t input{1,input_a};
+		const quicknet::vector_t input{1,input_a};
 		const quicknet::vector_t& output = layer.feedForward(input);
 
 		ASSERT_EQ(in * 0.5 - 1.0, output(0));

@@ -32,14 +32,15 @@ TEST(NetworkTest, Single) {
 
 	std::vector<float> inputs{1.0, 3.5, 0.25, -1.0};
 
-	for(float k : inputs) {
-		float input_a[1];
-		input_a[0] = k;
+	for(float in : inputs) {
+		float input_a[1]{
+			in
+		};
 
 		quicknet::vector_t input{1,input_a};
 		const quicknet::vector_t& output = network.feedForward(input);
 
-		ASSERT_EQ(k * 0.5, output(0));
+		ASSERT_EQ(in * 0.5, output(0));
 	}
 }
 
@@ -88,13 +89,14 @@ TEST(NetworkTest, Double) {
 
 	std::vector<float> inputs{1.0, 3.5, 0.25, -1.0};
 
-	for(float k : inputs) {
-		float input_a[1];
-		input_a[0] = k;
+	for(float in : inputs) {
+		float input_a[1]{
+			in
+		};
 
 		quicknet::vector_t input{1,input_a};
 		const quicknet::vector_t& output = network.feedForward(input);
 
-		ASSERT_EQ(2.0 * k - 0.5, output(0));
+		ASSERT_EQ(2.0 * in - 0.5, output(0));
 	}
 }

@@ -43,7 +43,7 @@ Layer::Layer(const matrix_t& weights, const vector_t& bias, vector_t& output, ac
     QUICKNET_ASSERT(output.length() == weights.rows());
 }
 
-vector_t& Layer::feedForward(vector_t& input) {
+const vector_t& Layer::feedForward(const vector_t& input) {
 	QUICKNET_ASSERT(input.length() == this->weights.columns());
 
     for(uint8_t i = 0; i < this->output.length(); i++) {

@@ -41,12 +41,12 @@
 
 namespace quicknet {
 
-typedef float weight_t;
+using weight_t = float;
 
-typedef Matrix<weight_t> matrix_t;
-typedef Vector<weight_t> vector_t;
+using matrix_t = Matrix<weight_t>;
+using vector_t = Vector<weight_t>;
 
-typedef void (*activation_t)(vector_t&);
+using activation_t = void (*)(vector_t&);
 
 class Layer {
 public:
@@ -56,7 +56,7 @@ public:
     Layer& operator=(const Layer&) = delete;
     ~Layer() = default;
 
-    vector_t& feedForward(vector_t& input);
+    const vector_t& feedForward(const vector_t& input);
 
 private:
     const matrix_t& weights;

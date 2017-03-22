@@ -40,11 +40,11 @@ namespace quicknet {
 Network::Network(uint8_t n, Layer* layers) : n(n), layers(layers) {
 }
 
-vector_t& Network::feedForward(vector_t& input) {
-    vector_t* output = &input;
+const vector_t& Network::feedForward(vector_t& input) {
+	const vector_t * output = &input;
 
     for(uint8_t i = 0; i < n; i++) {
-        output = &layers[i].feedForward(*output);
+        output = &(layers[i].feedForward(*output));
     }
 
     return *output;
