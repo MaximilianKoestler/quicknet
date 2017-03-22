@@ -9,14 +9,11 @@ def main(args):
         network = json.load(f)
 
     indent = ' ' * 4
- 
     code_arrays = []
-    code_layers = ''
- 
+    code_layers = []
     num_layers = len(network['layers'])
  
-    code_layers += 'static quicknet::Layer layers[%d] {\n' % (num_layers)
- 
+    code_layers.append('static quicknet::Layer layers[%d] {' % (num_layers))
     for i, layer in enumerate(network['layers']):
         code_arrays.append('/******** Layer %d ********/' % i)
 
@@ -37,14 +34,15 @@ def main(args):
         code_arrays.append('static quicknet::vector_t l%d_output{%d,l%d_output_array};' % (i, layer['outputs'], i))
         code_arrays.append('')
  
-        code_layers += indent + '{l%d_weights, l%d_bias, l%d_output, quicknet::quick_%s},\n' % (i, i, i, layer['activation'])
+        code_layers.append(indent + '{l%d_weights, l%d_bias, l%d_output, quicknet::quick_%s},' % (i, i, i, layer['activation']))
  
-    code_layers += '};\n\n'
+    code_layers.append('};')
+    code_layers.append('')
  
     code_cpp = '#include "NeuralNetwork.h"\n\n'
     code_cpp += '\n'.join(code_arrays) + '\n'
     code_cpp += '/******** Network ********/\n'
-    code_cpp += code_layers
+    code_cpp += '\n'.join(code_layers) + '\n'
     code_cpp += 'NeuralNetwork::NeuralNetwork() : network{%d, layers} {\n}\n' % num_layers
  
     with open(args.output, 'w') as f:
