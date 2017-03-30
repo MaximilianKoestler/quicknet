@@ -39,7 +39,7 @@ def main(args):
     code_layers.append('};')
     code_layers.append('')
  
-    code_cpp = '#include "NeuralNetwork.h"\n\n'
+    code_cpp = ''
     code_cpp += '\n'.join(code_arrays) + '\n'
     code_cpp += '/******** Network ********/\n'
     code_cpp += '\n'.join(code_layers) + '\n'
