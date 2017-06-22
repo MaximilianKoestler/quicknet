@@ -28,7 +28,7 @@ def main(args):
         layer['outputs'] = outputs
 
         layer['bias'] = [weight() for j in range(0, outputs)]
-        layer['weigts'] = [[weight() for i in range(0, inputs)] for j in range(0, outputs)]
+        layer['weights'] = [[weight() for i in range(0, inputs)] for j in range(0, outputs)]
 
         network['layers'].append(layer)
 
